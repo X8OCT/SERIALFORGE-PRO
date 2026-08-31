@@ -42,6 +42,14 @@ export const BottomBar: React.FC<BottomBarProps> = ({
 
         {/* Right: CPU, RAM & Narrow Cyber Language Switcher */}
         <div className="flex items-center gap-2">
+          {/* Creator Badge */}
+          <div className="bg-[#111827] border border-[#374151] rounded px-2 py-0.5 flex items-center gap-1 font-bold">
+            <span className="text-[#9CA3AF]">Ideation:</span>
+            <span className="text-[#F3F4F6]">X80CT</span>
+            <span className="text-[#9CA3AF] ml-1">| Code:</span>
+            <span className="text-[#38BDF8]">Gemini</span>
+          </div>
+
           {/* CPU Badge */}
           <div className="bg-[#0B253A] border border-[#0284C7] rounded px-2 py-0.5 flex items-center gap-1 font-bold">
             <span className="text-[#38BDF8]">⚡ CPU:</span>

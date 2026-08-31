@@ -510,6 +510,16 @@
 
                 <!-- Right Side Controls: CPU & RAM Badges + Language Switcher -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <!-- Creator Badge -->
+                    <Border Background="#111827" BorderBrush="#374151" BorderThickness="1" CornerRadius="3" Padding="6,2" Margin="0,0,6,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="Ideation: " Foreground="#9CA3AF" FontSize="10" FontWeight="Bold" FontFamily="Consolas"/>
+                            <TextBlock Text="X80CT" Foreground="#F3F4F6" FontSize="10" FontWeight="Bold" FontFamily="Consolas"/>
+                            <TextBlock Text=" | Code: " Foreground="#9CA3AF" FontSize="10" FontWeight="Bold" FontFamily="Consolas"/>
+                            <TextBlock Text="Gemini" Foreground="#38BDF8" FontSize="10" FontWeight="Bold" FontFamily="Consolas"/>
+                        </StackPanel>
+                    </Border>
+                    
                     <!-- CPU Badge -->
                     <Border Background="#0B253A" BorderBrush="#0284C7" BorderThickness="1" CornerRadius="3" Padding="6,2" Margin="0,0,6,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">

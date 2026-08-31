@@ -28,15 +28,29 @@ export const TerminalView: React.FC<TerminalViewProps> = ({
   const [highlightBlue, setHighlightBlue] = useState('');
   const [highlightRed, setHighlightRed] = useState('');
   const [showFilters, setShowFilters] = useState(false);
+  const [isFrozen, setIsFrozen] = useState(false);
+  const [frozenLogs, setFrozenLogs] = useState<LogEntry[]>([]);
 
   useEffect(() => {
-    if (autoScroll && scrollRef.current) {
+    if (autoScroll && scrollRef.current && !isFrozen) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [logs, autoScroll]);
+  }, [logs, autoScroll, isFrozen]);
+
+  const toggleFreeze = () => {
+    if (isFrozen) {
+      setIsFrozen(false);
+      setFrozenLogs([]);
+    } else {
+      setFrozenLogs(logs);
+      setIsFrozen(true);
+    }
+  };
+
+  const actualLogs = isFrozen ? frozenLogs : logs;
 
   const handleCopyLogs = () => {
-    const text = logs
+    const text = actualLogs
       .map(
         (l) =>
           `[${l.timestamp}] [${l.type.toUpperCase()}] > HEX: [${l.hex}] | ASCII: "${l.text}"`
@@ -48,7 +62,7 @@ export const TerminalView: React.FC<TerminalViewProps> = ({
   };
 
   const displayLogs = useMemo(() => {
-    return logs.filter((log) => {
+    return actualLogs.filter((log) => {
       if (!excludeFilter) return true;
       try {
         const regex = new RegExp(excludeFilter, 'i');
@@ -60,7 +74,7 @@ export const TerminalView: React.FC<TerminalViewProps> = ({
         );
       }
     });
-  }, [logs, excludeFilter]);
+  }, [actualLogs, excludeFilter]);
 
   const checkHighlight = (log: LogEntry, filter: string): boolean => {
     if (!filter) return false;
@@ -102,7 +116,17 @@ export const TerminalView: React.FC<TerminalViewProps> = ({
             >
               {lang === 'ru' ? 'Фильтры & Парсеры' : lang === 'ua' ? 'Фільтри & Парсери' : 'Filters & Parsers'}
             </button>
-            <label className="flex items-center gap-1 text-[#94A3B8] cursor-pointer">
+            <button
+              onClick={toggleFreeze}
+              className={`px-2 py-0.5 border rounded text-[10px] transition-colors ${
+                isFrozen
+                  ? 'bg-sky-900/40 text-sky-400 border-sky-500/50'
+                  : 'bg-[#070B14] hover:bg-[#1E293B] text-slate-300 border-[#1E293B]'
+              }`}
+            >
+              {isFrozen ? t.unfreezeBtn : t.freezeBtn}
+            </button>
+            <label className="flex items-center gap-1 text-[#94A3B8] cursor-pointer ml-1">
               <input
                 type="checkbox"
                 checked={autoScroll}
@@ -118,7 +142,10 @@ export const TerminalView: React.FC<TerminalViewProps> = ({
               {copied ? t.copiedBtn : t.copyBtn}
             </button>
             <button
-              onClick={onClearLogs}
+              onClick={() => {
+                setFrozenLogs([]);
+                onClearLogs();
+              }}
               className="px-2 py-0.5 bg-[#070B14] hover:bg-[#1E293B] text-slate-300 border border-[#1E293B] rounded text-[10px] transition-colors"
             >
               {t.clearBtn}

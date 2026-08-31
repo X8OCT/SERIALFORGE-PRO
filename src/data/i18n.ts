@@ -59,6 +59,8 @@ export interface Translations {
   terminalHeader: string;
   scriptWarning: string;
   autoScroll: string;
+  freezeBtn: string;
+  unfreezeBtn: string;
   clearBtn: string;
   messagesCount: string;
 
@@ -195,6 +197,8 @@ export const I18N: Record<AppLanguage, Translations> = {
     terminalHeader: 'ЖУРНАЛ ОБМЕНА ТРАФИКА (LIVE STREAM)',
     scriptWarning: '⚠️ Функция должна называться строго generatePacket(num)',
     autoScroll: 'Автопрокрутка',
+    freezeBtn: '❄️ Заморозить',
+    unfreezeBtn: '▶️ Разморозить',
     clearBtn: 'Очистить',
     messagesCount: 'сообщений',
 
@@ -321,6 +325,8 @@ export const I18N: Record<AppLanguage, Translations> = {
     terminalHeader: 'ЖУРНАЛ ОБМІНУ ТРАФІКОМ (LIVE STREAM)',
     scriptWarning: '⚠️ Функція повинна називатися суворо generatePacket(num)',
     autoScroll: 'Автопрокрутка',
+    freezeBtn: '❄️ Заморозити',
+    unfreezeBtn: '▶️ Розморозити',
     clearBtn: 'Очистити',
     messagesCount: 'повідомлень',
 
@@ -447,6 +453,8 @@ export const I18N: Record<AppLanguage, Translations> = {
     terminalHeader: 'TRAFFIC EXCHANGE STREAM (LIVE)',
     scriptWarning: '⚠️ The function must be strictly named generatePacket(num)',
     autoScroll: 'Auto-scroll',
+    freezeBtn: '❄️ Freeze',
+    unfreezeBtn: '▶️ Resume',
     clearBtn: 'Clear',
     messagesCount: 'messages',
 

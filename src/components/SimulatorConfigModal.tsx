@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Radio, KeyRound, Sparkles, CheckCircle2, Zap } from 'lucide-react';
 import { AppLanguage, HardwareSimulatorConfig } from '../types';
+import { I18N } from '../data/i18n';
 
 interface SimulatorConfigModalProps {
   isOpen: boolean;
@@ -26,7 +27,7 @@ export const SimulatorConfigModal: React.FC<SimulatorConfigModalProps> = ({
   onStopSimulation,
 }) => {
   if (!isOpen) return null;
-  const isRu = lang === 'ru';
+  const t = I18N[lang];
 
   const randomizeSecret = () => {
     // Generate random 16-bit number
@@ -45,10 +46,10 @@ export const SimulatorConfigModal: React.FC<SimulatorConfigModalProps> = ({
             </div>
             <div>
               <h2 className="text-base font-bold text-slate-100 font-mono">
-                {isRu ? 'Виртуальный симулятор COM-устройства' : 'Virtual Hardware Simulator'}
+                {t.simConfigTitle}
               </h2>
               <p className="text-xs text-slate-400">
-                {isRu ? 'Эмуляция платы микроконтроллера для тестирования без проводов' : 'Emulates target hardware controller with secret password'}
+                {t.simConfigDesc}
               </p>
             </div>
           </div>
@@ -67,13 +68,13 @@ export const SimulatorConfigModal: React.FC<SimulatorConfigModalProps> = ({
             <div className="flex items-center justify-between">
               <label className="text-slate-300 font-semibold flex items-center gap-1.5 text-amber-400">
                 <KeyRound className="w-4 h-4" />
-                <span>{isRu ? 'Секретный код / Пароль в памяти платы:' : 'Hardware Target Secret Key:'}</span>
+                <span>{t.secretKeyLabel}</span>
               </label>
               <button
                 onClick={randomizeSecret}
                 className="px-2 py-0.5 rounded bg-[#1E293B] hover:bg-[#334155] text-slate-300 text-[10px] transition-colors"
               >
-                {isRu ? 'Случайный' : 'Randomize'}
+                {t.randomizeBtn}
               </button>
             </div>
 
@@ -100,7 +101,7 @@ export const SimulatorConfigModal: React.FC<SimulatorConfigModalProps> = ({
           {/* Response Delay */}
           <div>
             <label className="block text-slate-300 mb-1">
-              {isRu ? 'Задержка ответа платы (мс)' : 'Target Response Latency (ms)'}
+              {t.simLatencyLabel}
             </label>
             <input
               type="number"
@@ -113,7 +114,7 @@ export const SimulatorConfigModal: React.FC<SimulatorConfigModalProps> = ({
           {/* Protocol Type */}
           <div>
             <label className="block text-slate-300 mb-1">
-              {isRu ? 'Тип имитируемого протокола' : 'Simulated Response Format'}
+              {t.simProtoLabel}
             </label>
             <select
               value={config.packetStructure}
@@ -137,7 +138,7 @@ export const SimulatorConfigModal: React.FC<SimulatorConfigModalProps> = ({
               }}
               className="px-4 py-2 rounded-lg bg-rose-600/20 text-rose-300 border border-rose-500/40 hover:bg-rose-600/30 text-xs font-mono font-bold transition-colors"
             >
-              {isRu ? 'Остановить симулятор' : 'Stop Simulator'}
+              {t.stopSimBtn}
             </button>
           ) : (
             <button
@@ -148,7 +149,7 @@ export const SimulatorConfigModal: React.FC<SimulatorConfigModalProps> = ({
               className="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-mono font-extrabold transition-colors flex items-center gap-1.5"
             >
               <Zap className="w-4 h-4" />
-              <span>{isRu ? 'Подключить симулятор' : 'Start Simulator'}</span>
+              <span>{t.startSimBtn}</span>
             </button>
           )}
 
@@ -156,7 +157,7 @@ export const SimulatorConfigModal: React.FC<SimulatorConfigModalProps> = ({
             onClick={onClose}
             className="px-4 py-2 rounded-lg bg-[#1E293B] hover:bg-[#334155] text-slate-300 text-xs font-mono transition-colors"
           >
-            {isRu ? 'Закрыть' : 'Close'}
+            {t.closeBtn}
           </button>
         </div>
       </div>

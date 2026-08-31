@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Usb, AlertCircle, CheckCircle2, ShieldCheck, RefreshCw, Zap } from 'lucide-react';
 import { AppLanguage, SerialPortConfig } from '../types';
+import { I18N } from '../data/i18n';
 
 interface PortConfigModalProps {
   isOpen: boolean;
@@ -32,7 +33,7 @@ export const PortConfigModal: React.FC<PortConfigModalProps> = ({
   isWebSerialSupported,
 }) => {
   if (!isOpen) return null;
-  const isRu = lang === 'ru';
+  const t = I18N[lang];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs">
@@ -45,10 +46,10 @@ export const PortConfigModal: React.FC<PortConfigModalProps> = ({
             </div>
             <div>
               <h2 className="text-base font-bold text-slate-100 font-mono">
-                {isRu ? 'Конфигурация COM-порта' : 'Serial Port Settings'}
+                {t.portConfigTitle}
               </h2>
               <p className="text-xs text-slate-400">
-                {isRu ? 'Параметры UART / RS-232 / RS-485' : 'UART / RS-232 / RS-485 physical parameters'}
+                {t.portConfigDesc}
               </p>
             </div>
           </div>
@@ -65,7 +66,7 @@ export const PortConfigModal: React.FC<PortConfigModalProps> = ({
           {/* Baud Rate */}
           <div>
             <label className="block text-slate-300 font-semibold mb-1.5">
-              {isRu ? 'Скорость передачи (Baudrate)' : 'Baud Rate (bps)'}
+              {t.baudRateLabel}
             </label>
             <select
               value={config.baudRate}
@@ -85,7 +86,7 @@ export const PortConfigModal: React.FC<PortConfigModalProps> = ({
           <div className="grid grid-cols-2 gap-3">
             {/* Data Bits */}
             <div>
-              <label className="block text-slate-400 mb-1">{isRu ? 'Биты данных' : 'Data Bits'}</label>
+              <label className="block text-slate-400 mb-1">{t.dataBitsLabel}</label>
               <select
                 value={config.dataBits}
                 onChange={(e) => onChangeConfig({ ...config, dataBits: Number(e.target.value) as 7 | 8 })}
@@ -99,7 +100,7 @@ export const PortConfigModal: React.FC<PortConfigModalProps> = ({
 
             {/* Stop Bits */}
             <div>
-              <label className="block text-slate-400 mb-1">{isRu ? 'Стоп-биты' : 'Stop Bits'}</label>
+              <label className="block text-slate-400 mb-1">{t.stopBitsLabel}</label>
               <select
                 value={config.stopBits}
                 onChange={(e) => onChangeConfig({ ...config, stopBits: Number(e.target.value) as 1 | 2 })}
@@ -113,7 +114,7 @@ export const PortConfigModal: React.FC<PortConfigModalProps> = ({
 
             {/* Parity */}
             <div>
-              <label className="block text-slate-400 mb-1">{isRu ? 'Четность (Parity)' : 'Parity'}</label>
+              <label className="block text-slate-400 mb-1">{t.parityLabel}</label>
               <select
                 value={config.parity}
                 onChange={(e) => onChangeConfig({ ...config, parity: e.target.value as any })}
@@ -128,7 +129,7 @@ export const PortConfigModal: React.FC<PortConfigModalProps> = ({
 
             {/* Flow Control */}
             <div>
-              <label className="block text-slate-400 mb-1">{isRu ? 'Управление потоком' : 'Flow Control'}</label>
+              <label className="block text-slate-400 mb-1">{t.flowControlLabel}</label>
               <select
                 value={config.flowControl}
                 onChange={(e) => onChangeConfig({ ...config, flowControl: e.target.value as any })}
@@ -143,7 +144,7 @@ export const PortConfigModal: React.FC<PortConfigModalProps> = ({
 
           {/* Buffer Size */}
           <div>
-            <label className="block text-slate-400 mb-1">{isRu ? 'Размер буфера (Rx/Tx bytes)' : 'Buffer Size (bytes)'}</label>
+            <label className="block text-slate-400 mb-1">{t.bufferSizeLabel}</label>
             <input
               type="number"
               value={config.bufferSize}
@@ -158,9 +159,7 @@ export const PortConfigModal: React.FC<PortConfigModalProps> = ({
             <div className="p-3 rounded-lg bg-amber-950/40 border border-amber-500/40 text-amber-300 flex items-start gap-2.5">
               <AlertCircle className="w-5 h-5 shrink-0 text-amber-400 mt-0.5" />
               <div className="text-[11px] leading-relaxed">
-                {isRu
-                  ? 'Web Serial API не доступен напрямую в этом окружении браузера. Вы можете использовать виртуальный симулятор прямо сейчас или скомпилировать приложенный проект C# WPF для работы с любыми физическими COM-портами в Windows.'
-                  : 'Web Serial API is not accessible in this browser context. You can use the built-in simulator or the standalone C# WPF app to connect to real hardware ports in Windows.'}
+                {lang === 'en' ? 'Web Serial API is not accessible in this browser context. You can use the built-in simulator or the standalone C# WPF app to connect to real hardware ports in Windows.' : lang === 'ua' ? 'Web Serial API недоступний у цьому середовищі. Використовуйте симулятор або C# WPF програму для реальних портів.' : 'Web Serial API не доступен напрямую в этом окружении браузера. Вы можете использовать виртуальный симулятор прямо сейчас или скомпилировать приложенный проект C# WPF для работы с любыми физическими COM-портами в Windows.'}
               </div>
             </div>
           )}
@@ -176,7 +175,7 @@ export const PortConfigModal: React.FC<PortConfigModalProps> = ({
               }}
               className="px-4 py-2 rounded-lg bg-rose-600/20 text-rose-300 border border-rose-500/40 hover:bg-rose-600/30 text-xs font-mono font-bold transition-colors"
             >
-              {isRu ? 'Отключить порт' : 'Disconnect Port'}
+              {t.disconnectPortBtn}
             </button>
           ) : (
             <div className="flex items-center gap-2">
@@ -189,7 +188,7 @@ export const PortConfigModal: React.FC<PortConfigModalProps> = ({
                 className="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 disabled:opacity-50 text-white text-xs font-mono font-bold transition-colors flex items-center gap-1.5"
               >
                 <Usb className="w-3.5 h-3.5" />
-                <span>{isRu ? 'Выбрать USB/COM' : 'Select Serial Port'}</span>
+                <span>{t.selectPortBtn}</span>
               </button>
 
               <button
@@ -200,7 +199,7 @@ export const PortConfigModal: React.FC<PortConfigModalProps> = ({
                 className="px-3 py-2 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 text-xs font-mono font-bold transition-colors flex items-center gap-1"
               >
                 <Zap className="w-3.5 h-3.5" />
-                <span>{isRu ? 'Тест в симуляторе' : 'Virtual Simulator'}</span>
+                <span>{t.virtualSimBtn}</span>
               </button>
             </div>
           )}
@@ -209,7 +208,7 @@ export const PortConfigModal: React.FC<PortConfigModalProps> = ({
             onClick={onClose}
             className="px-4 py-2 rounded-lg bg-[#1E293B] hover:bg-[#334155] text-slate-300 text-xs font-mono transition-colors"
           >
-            {isRu ? 'Закрыть' : 'Close'}
+            {t.closeBtn}
           </button>
         </div>
       </div>

@@ -54,7 +54,7 @@ export class SerialManager {
    */
   public async connectHardware(portConfig: SerialPortConfig): Promise<void> {
     if (!this.isSupported()) {
-      throw new Error('Web Serial API не поддерживается вашим браузером. Используйте Chrome/Edge/Opera или встроенный симулятор.');
+      throw new Error('WEB_SERIAL_NOT_SUPPORTED');
     }
 
     if (this.isConnected()) {
@@ -123,7 +123,7 @@ export class SerialManager {
    */
   public async send(data: Uint8Array): Promise<void> {
     if (!this.isConnected()) {
-      throw new Error('Порт не подключен.');
+      throw new Error('PORT_NOT_CONNECTED');
     }
 
     if (this.isSimulated) {
@@ -132,7 +132,7 @@ export class SerialManager {
     }
 
     if (!this.port || !this.port.writable) {
-      throw new Error('Порт недоступен для записи.');
+      throw new Error('PORT_NOT_WRITABLE');
     }
 
     const writer = this.port.writable.getWriter();

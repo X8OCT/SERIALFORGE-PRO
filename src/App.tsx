@@ -38,6 +38,14 @@ export function App() {
   });
 
   const t = I18N[lang];
+  
+const mapError = (msg: string) => {
+  if (msg === 'WEB_SERIAL_NOT_SUPPORTED') return t.errNoWebSerial;
+  if (msg === 'PORT_NOT_CONNECTED') return t.errPortNotConnected;
+  if (msg === 'PORT_NOT_WRITABLE') return t.errPortNotWritable;
+  return msg;
+};
+
 
   // 2. Port Configuration
   const [portConfig, setPortConfig] = useState<SerialPortConfig>(() => {
@@ -298,7 +306,7 @@ export function App() {
       },
       onError: (err) => {
         const msg = typeof err === 'string' ? err : err.message;
-        addLog('error', '', msg);
+        addLog('error', '', mapError(msg));
         setStatusText(t.statusPortError);
       },
       onConnect: () => {
@@ -309,8 +317,8 @@ export function App() {
           'system',
           '',
           mgr.getIsSimulated()
-            ? 'Виртуальный симулятор COM-порта подключен.'
-            : 'Физический USB-UART порт успешно открыт.'
+            ? t.sysSimConnected
+            : t.sysUsbConnected
         );
       },
       onDisconnect: () => {
@@ -319,7 +327,7 @@ export function App() {
         setIsRunning(false);
         runningRef.current = false;
         setStatusText(t.statusReady);
-        addLog('system', '', 'Порт отключен.');
+        addLog('system', '', t.sysPortDisconnected);
       },
     });
 
@@ -402,7 +410,7 @@ export function App() {
     try {
       await serialManagerRef.current.connectHardware(portConfig);
     } catch (e: any) {
-      addLog('error', '', `${e.message}`);
+      addLog('error', '', mapError(e.message));
     }
   };
 
@@ -412,7 +420,7 @@ export function App() {
     try {
       await serialManagerRef.current.connectSimulator(simulatorConfig);
     } catch (e: any) {
-      addLog('error', '', `${e.message}`);
+      addLog('error', '', mapError(e.message));
     }
   };
 
@@ -441,7 +449,7 @@ export function App() {
     setCurrentSeqNumber(profile.startNum);
 
     const pName = lang === 'ru' ? profile.nameRu : lang === 'ua' ? profile.nameUa : profile.nameEn;
-    addLog('system', '', `Загружен пресет: ${pName}`);
+    addLog('system', '', `${t.sysPresetLoaded} ${pName}`);
   };
 
   // Start Attack Loop
@@ -468,7 +476,7 @@ export function App() {
     addLog(
       'system',
       '',
-      `[START] Диапазон [${startNum}..${endNum}], шаг: ${step}, задержка: ${delayMs}мс`
+      `[START] Range [${startNum}..${endNum}], step: ${step}, delay: ${delayMs}ms`
     );
 
     // Speed counter timer
@@ -491,7 +499,7 @@ export function App() {
       const num = currentNumRef.current;
       if (num > endNum) {
         setStatusText(t.statusFinished);
-        addLog('system', '', 'Перебор диапазона завершен.');
+        addLog('system', '', t.sysRangeDone);
         handleStop();
         break;
       }
@@ -505,7 +513,7 @@ export function App() {
           sentCountRef.current++;
         }
       } catch (err: any) {
-        addLog('error', '', err.message);
+        addLog('error', '', mapError(err.message));
       }
 
       // Increment sequence number
@@ -522,14 +530,14 @@ export function App() {
     setIsPaused(true);
     pausedRef.current = true;
     setStatusText(t.statusPaused);
-    addLog('system', '', 'Перебор приостановлен.');
+    addLog('system', '', t.sysScanPaused);
   };
 
   const handleResume = () => {
     setIsPaused(false);
     pausedRef.current = false;
     setStatusText(t.statusRunning);
-    addLog('system', '', 'Перебор возобновлен.');
+    addLog('system', '', t.sysScanResumed);
   };
 
   const handleStop = () => {
@@ -557,7 +565,7 @@ export function App() {
         addLog('tx', packet.packetHex, packet.packetText, num);
       }
     } catch (err: any) {
-      addLog('error', '', err.message);
+      addLog('error', '', mapError(err.message));
     }
 
     const nextNum = num + step;

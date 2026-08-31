@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AppLanguage } from '../types';
+import { I18N } from '../data/i18n';
 
 interface BottomBarProps {
   lang: AppLanguage;

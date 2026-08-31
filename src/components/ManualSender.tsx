@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Send, CheckCircle2, AlertCircle, Sparkles, Hash } from 'lucide-react';
 import { AppLanguage, ChecksumType, Endianness } from '../types';
+import { I18N } from '../data/i18n';
 import { calculateChecksum } from '../utils/checksums';
 import { formatHex, parseHexString } from '../utils/packetBuilder';
 
@@ -11,7 +12,7 @@ interface ManualSenderProps {
 }
 
 export const ManualSender: React.FC<ManualSenderProps> = ({ lang, onSendBytes, isConnected }) => {
-  const isRu = lang === 'ru';
+  const t = I18N[lang];
   const [inputHex, setInputHex] = useState('AA 55 01 20 00 01 0D 0A');
   const [checksumType, setChecksumType] = useState<ChecksumType>('none');
   const [autoAppendChecksum, setAutoAppendChecksum] = useState(false);
@@ -50,10 +51,10 @@ export const ManualSender: React.FC<ManualSenderProps> = ({ lang, onSendBytes, i
       <div className="flex items-center justify-between">
         <span className="font-bold text-slate-100 flex items-center gap-2">
           <Send className="w-4 h-4 text-sky-400" />
-          <span>{isRu ? 'Ручная отправка пакета (Direct HEX Send)' : 'Manual Direct Packet Transmitter'}</span>
+          <span>{t.manualSendHeader}</span>
         </span>
         <span className="text-[11px] text-slate-400">
-          {parsedBytes.length} {isRu ? 'байт' : 'bytes'}
+          {parsedBytes.length} {t.bytesLabel}
         </span>
       </div>
 
@@ -72,14 +73,14 @@ export const ManualSender: React.FC<ManualSenderProps> = ({ lang, onSendBytes, i
           className="px-4 py-2 bg-sky-600 hover:bg-sky-500 disabled:opacity-40 text-white font-bold rounded-lg transition-colors flex items-center gap-1.5 shadow-md shadow-sky-950/50"
         >
           <Send className="w-3.5 h-3.5" />
-          <span>{isRu ? 'ОТПРАВИТЬ' : 'SEND'}</span>
+          <span>{t.sendBtn}</span>
         </button>
       </div>
 
       {/* Live CRC Helper & Append Option */}
       <div className="flex flex-wrap items-center justify-between gap-2 p-2 bg-[#0A0F1B] rounded border border-slate-800 text-[11px]">
         <div className="flex items-center gap-2">
-          <span className="text-slate-400">{isRu ? 'Вычислить CRC:' : 'Calc CRC:'}</span>
+          <span className="text-slate-400">{t.calcCrc}</span>
           <select
             value={checksumType}
             onChange={(e) => setChecksumType(e.target.value as ChecksumType)}
@@ -108,7 +109,7 @@ export const ManualSender: React.FC<ManualSenderProps> = ({ lang, onSendBytes, i
               onChange={(e) => setAutoAppendChecksum(e.target.checked)}
               className="rounded bg-[#0F172A] border-[#334155] text-sky-500 focus:ring-0 w-3.5 h-3.5"
             />
-            <span>{isRu ? 'Прикрепить CRC в конец' : 'Append CRC'}</span>
+            <span>{t.appendCrc}</span>
           </label>
         )}
       </div>
@@ -116,7 +117,7 @@ export const ManualSender: React.FC<ManualSenderProps> = ({ lang, onSendBytes, i
       {/* Recent History quick-picks */}
       {history.length > 0 && (
         <div className="flex items-center gap-1.5 overflow-x-auto pt-1">
-          <span className="text-slate-500 text-[10px] shrink-0">{isRu ? 'История:' : 'History:'}</span>
+          <span className="text-slate-500 text-[10px] shrink-0">{t.history}</span>
           {history.map((h, i) => (
             <button
               key={i}

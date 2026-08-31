@@ -63,8 +63,6 @@ export interface Translations {
   exportPcapBtn: string;
   exportCsvBtnTerminal: string;
   unfreezeBtn: string;
-  exportPcapBtn: string;
-  exportCsvBtnTerminal: string;
   clearBtn: string;
   messagesCount: string;
 

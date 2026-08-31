@@ -60,7 +60,11 @@ export interface Translations {
   scriptWarning: string;
   autoScroll: string;
   freezeBtn: string;
+  exportPcapBtn: string;
+  exportCsvBtnTerminal: string;
   unfreezeBtn: string;
+  exportPcapBtn: string;
+  exportCsvBtnTerminal: string;
   clearBtn: string;
   messagesCount: string;
 
@@ -198,6 +202,8 @@ export const I18N: Record<AppLanguage, Translations> = {
     scriptWarning: '⚠️ Функция должна называться строго generatePacket(num)',
     autoScroll: 'Автопрокрутка',
     freezeBtn: '❄️ Заморозить',
+    exportPcapBtn: '💾 PCAP',
+    exportCsvBtnTerminal: '💾 CSV',
     unfreezeBtn: '▶️ Разморозить',
     clearBtn: 'Очистить',
     messagesCount: 'сообщений',
@@ -258,7 +264,7 @@ export const I18N: Record<AppLanguage, Translations> = {
     csharpGuideX2: 'Файл логики перебора MainWindow.xaml.cs реализует надежную асинхронную работу с SerialPort, подсчет контрольных сумм CRC16 Modbus / CRC8 / Sum-8 / XOR, ведение журнала передачи и авто-детектирование ответа контроллера.',
     csharpGuideX3: 'csharp_wpf/MainWindow.xaml content available in /csharp_wpf/MainWindow.xaml',
 
-    ideation: 'Идея:',
+    ideation: 'Концепт:',
     code: 'Код:',
 
     sysSimConnected: 'Виртуальный симулятор COM-порта подключен.',
@@ -326,6 +332,8 @@ export const I18N: Record<AppLanguage, Translations> = {
     scriptWarning: '⚠️ Функція повинна називатися суворо generatePacket(num)',
     autoScroll: 'Автопрокрутка',
     freezeBtn: '❄️ Заморозити',
+    exportPcapBtn: '💾 PCAP',
+    exportCsvBtnTerminal: '💾 CSV',
     unfreezeBtn: '▶️ Розморозити',
     clearBtn: 'Очистити',
     messagesCount: 'повідомлень',
@@ -386,7 +394,7 @@ export const I18N: Record<AppLanguage, Translations> = {
     csharpGuideX2: 'Файл логіки перебору MainWindow.xaml.cs реалізує надійну асинхронну роботу з SerialPort, підрахунок контрольних сум CRC16 Modbus / CRC8 / Sum-8 / XOR, ведення журналу передачі та авто-визначення відповіді контролера.',
     csharpGuideX3: 'csharp_wpf/MainWindow.xaml content available in /csharp_wpf/MainWindow.xaml',
 
-    ideation: 'Ідея:',
+    ideation: 'Концепт:',
     code: 'Код:',
 
     sysSimConnected: 'Віртуальний симулятор COM-порту підключено.',
@@ -454,6 +462,8 @@ export const I18N: Record<AppLanguage, Translations> = {
     scriptWarning: '⚠️ The function must be strictly named generatePacket(num)',
     autoScroll: 'Auto-scroll',
     freezeBtn: '❄️ Freeze',
+    exportPcapBtn: '💾 PCAP',
+    exportCsvBtnTerminal: '💾 CSV',
     unfreezeBtn: '▶️ Resume',
     clearBtn: 'Clear',
     messagesCount: 'messages',
@@ -514,7 +524,7 @@ export const I18N: Record<AppLanguage, Translations> = {
     csharpGuideX2: 'MainWindow.xaml.cs includes multithreaded serial port engine, hardware CRC calculation, log dispatching, and response pattern matching.',
     csharpGuideX3: 'csharp_wpf/MainWindow.xaml content available in /csharp_wpf/MainWindow.xaml',
 
-    ideation: 'Ideation:',
+    ideation: 'Concept:',
     code: 'Code:',
 
     sysSimConnected: 'Virtual COM port simulator connected.',

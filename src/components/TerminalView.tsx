@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { AppLanguage, LogEntry } from '../types';
 import { I18N } from '../data/i18n';
 import { ProtocolType, parseProtocol } from '../utils/protocolParsers';
+import { exportLogsToCsv, exportLogsToPcap } from '../utils/exportUtils';
 
 interface TerminalViewProps {
   lang: AppLanguage;
@@ -141,11 +142,25 @@ export const TerminalView: React.FC<TerminalViewProps> = ({
             >
               {copied ? t.copiedBtn : t.copyBtn}
             </button>
+            
+            <button
+              onClick={() => exportLogsToCsv(actualLogs)}
+              className="px-2 py-0.5 bg-[#070B14] hover:bg-[#1E293B] text-slate-300 border border-[#1E293B] rounded text-[10px] transition-colors"
+            >
+              {t.exportCsvBtnTerminal}
+            </button>
+            <button
+              onClick={() => exportLogsToPcap(actualLogs)}
+              className="px-2 py-0.5 bg-[#070B14] hover:bg-[#1E293B] text-slate-300 border border-[#1E293B] rounded text-[10px] transition-colors"
+            >
+              {t.exportPcapBtn}
+            </button>
             <button
               onClick={() => {
                 setFrozenLogs([]);
                 onClearLogs();
               }}
+
               className="px-2 py-0.5 bg-[#070B14] hover:bg-[#1E293B] text-slate-300 border border-[#1E293B] rounded text-[10px] transition-colors"
             >
               {t.clearBtn}

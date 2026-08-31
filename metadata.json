@@ -1,0 +1,6 @@
+{
+  "name": "Serial Bruteforce Forge",
+  "description": "Professional COM/UART serial port brute-force tool, packet builder, response analyzer, and simulator with live HEX terminal",
+  "requestFramePermissions": ["camera", "microphone", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
